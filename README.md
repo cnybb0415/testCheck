@@ -45,6 +45,15 @@ npm run db:seed      # 단원별 연습문제 50개 삽입 (data/seed-questions.
 npm run dev
 ```
 
+## 페이지
+
+- `/exam` — 기출문제 풀기 (단원/연도/회차 필터, 정답·해설 확인, 채점 기록)
+- `/cards` — 카드퀴즈 (단원 선택 또는 전체 셔플, 몰랐음은 세션 내 재출제)
+- `/cards?source=wrong` — 오답노트 문제만 모은 약점 집중 카드퀴즈
+- `/daily` — 오늘의 문제 (오답이 많은 문제 우선으로 매일 고정 세트 출제)
+- `/wrong-notes` — 오답노트 (단원별 정답률 + 반복 오답 문제 원인 분석)
+- `/guide` — 학습 가이드 (시험 개요, 배점, 답안 작성 팁, 개인화 약점 요약, 추천 자료)
+
 ## 폴더 구조
 
 ```
@@ -53,6 +62,10 @@ app/
     units/route.ts             # GET  단원 목록
     questions/route.ts         # GET  문제 목록 (unit/year/session 필터)
     questions/import/route.ts  # POST 문제 JSON 배열 import
+    attempts/route.ts          # POST 채점 기록 (오답노트/대시보드 기반)
+    card-progress/route.ts     # POST 카드퀴즈 알았음/몰랐음 기록
+    daily/route.ts             # GET  오늘의 문제 세트 (없으면 생성)
+    wrong-notes/route.ts       # GET  단원별 정답률 + 오답 문제 목록
 lib/
   schema.sql            # Postgres 스키마
   db.ts                 # Neon 커넥션 (sql 태그드 템플릿)
