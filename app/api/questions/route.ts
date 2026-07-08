@@ -1,6 +1,8 @@
 import { NextResponse } from "next/server";
 import { sql } from "@/lib/db";
 
+export const dynamic = "force-dynamic";
+
 // GET /api/questions?unit=1&year=2023&session=2
 // 세 파라미터 모두 선택적 필터로 동작한다.
 export async function GET(request: Request) {

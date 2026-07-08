@@ -1,101 +1,71 @@
-import Image from "next/image";
+import Link from "next/link";
+
+const FEATURES = [
+  {
+    href: "/exam",
+    title: "기출문제 풀기",
+    description: "단원별 / 연도별 / 회차별로 필터링해서 문제를 풀고 정답을 확인합니다.",
+    ready: true,
+  },
+  {
+    href: "/cards",
+    title: "카드퀴즈",
+    description: "단원별 플립 카드로 핵심 개념을 빠르게 암기합니다.",
+    ready: false,
+  },
+  {
+    href: "/daily",
+    title: "오늘의 문제",
+    description: "매일 랜덤으로 뽑힌 문제 세트를 풉니다.",
+    ready: false,
+  },
+  {
+    href: "/wrong-notes",
+    title: "오답노트",
+    description: "틀렸던 문제만 모아서 다시 복습합니다.",
+    ready: false,
+  },
+  {
+    href: "/dashboard",
+    title: "학습 진도 대시보드",
+    description: "단원별 정답률과 최근 학습 기록을 한눈에 확인합니다.",
+    ready: false,
+  },
+];
 
 export default function Home() {
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="https://nextjs.org/icons/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-              app/page.tsx
-            </code>
-            .
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
+    <div className="min-h-screen px-6 py-16 sm:px-12">
+      <main className="mx-auto max-w-3xl">
+        <h1 className="text-2xl font-bold sm:text-3xl">정보처리기사 실기 학습</h1>
+        <p className="mt-2 text-sm text-black/60 dark:text-white/60">
+          단원별 카드퀴즈, 기출문제 풀이, 오답노트, 학습 대시보드를 한 곳에서 관리합니다.
+        </p>
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="https://nextjs.org/icons/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+        <div className="mt-10 grid gap-4 sm:grid-cols-2">
+          {FEATURES.map((feature) =>
+            feature.ready ? (
+              <Link
+                key={feature.href}
+                href={feature.href}
+                className="rounded-lg border border-black/10 p-5 transition-colors hover:border-black/30 dark:border-white/15 dark:hover:border-white/40"
+              >
+                <h2 className="font-semibold">{feature.title}</h2>
+                <p className="mt-1 text-sm text-black/60 dark:text-white/60">{feature.description}</p>
+              </Link>
+            ) : (
+              <div
+                key={feature.href}
+                className="rounded-lg border border-dashed border-black/10 p-5 opacity-50 dark:border-white/15"
+              >
+                <h2 className="font-semibold">{feature.title}</h2>
+                <p className="mt-1 text-sm text-black/60 dark:text-white/60">{feature.description}</p>
+                <span className="mt-3 inline-block text-xs font-medium text-black/40 dark:text-white/40">준비 중</span>
+              </div>
+            )
+          )}
         </div>
       </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
     </div>
   );
 }
