@@ -36,7 +36,7 @@ vercel env pull .env.local
 
 ```bash
 npm run db:migrate   # 테이블 생성 + 5개 단원 등록
-npm run db:seed      # 단원별 연습문제 50개 삽입 (data/seed-questions.json)
+npm run db:seed      # data/ 폴더의 JSON 파일을 모두 읽어 문제 삽입 (총 433문제)
 ```
 
 ### 4. 개발 서버 실행
@@ -53,6 +53,7 @@ npm run dev
 - `/daily` — 오늘의 문제 (오답이 많은 문제 우선으로 매일 고정 세트 출제)
 - `/wrong-notes` — 오답노트 (단원별 정답률 + 반복 오답 문제 원인 분석)
 - `/guide` — 학습 가이드 (시험 개요, 배점, 답안 작성 팁, 개인화 약점 요약, 추천 자료)
+- `/dashboard` — 학습 진도 대시보드 (전체 정답률/커버리지, 단원별 정답률, 최근 14일 활동, 모드별 기록, 최근 채점 기록)
 
 ## 폴더 구조
 
@@ -66,6 +67,7 @@ app/
     card-progress/route.ts     # POST 카드퀴즈 알았음/몰랐음 기록
     daily/route.ts             # GET  오늘의 문제 세트 (없으면 생성)
     wrong-notes/route.ts       # GET  단원별 정답률 + 오답 문제 목록
+    dashboard/route.ts         # GET  전체/단원별/모드별 통계 + 최근 활동 집계
 lib/
   schema.sql            # Postgres 스키마
   db.ts                 # Neon 커넥션 (sql 태그드 템플릿)
@@ -73,9 +75,11 @@ lib/
   import-questions.ts   # seed 스크립트/import API가 공유하는 upsert 로직
 scripts/
   migrate.ts             # npm run db:migrate
-  seed.ts                 # npm run db:seed
+  seed.ts                 # npm run db:seed (data/ 폴더의 모든 *.json을 읽어 import)
 data/
   seed-questions.json     # 단원별 연습문제 50개 (source: "practice")
+  exam-questions.json     # newbt.kr 커뮤니티 게시글 + 블로그 복원문제 190개 (source: "exam")
+  practice-drills.json    # 시나공 문제집(코드/SQL 트레이싱) 193개 (source: "practice")
 ```
 
 ## DB 스키마 개요
@@ -108,7 +112,10 @@ data/
 
 ## 참고
 
-`data/seed-questions.json`의 50문제는 실기 출제 범위를 반영해 만든 연습문제이며, 실제 기출 원문이 아니다(`source: "practice"`). 검증된 기출문제는 위 import API로 추가하면 된다.
+- `data/seed-questions.json`(50문제)은 실기 출제 범위를 반영해 만든 연습문제이며, 실제 기출 원문이 아니다(`source: "practice"`).
+- `data/exam-questions.json`(190문제)은 [newbt.kr](https://newbt.kr) 커뮤니티에 사용자들이 올린 복원 기출문제와 블로그 복원문제를 모은 것이다(`source: "exam"`). 응시자 개인의 기억에 의존한 복원이라 문제/정답 표현이 실제 시험과 다르거나 부정확할 수 있으니 참고용으로만 사용한다.
+- `data/practice-drills.json`(193문제)은 시나공(길벗) 문제집의 코드/SQL 트레이싱 문제 유형을 참고해 재구성한 연습문제다(`source: "practice"`). 원문 표/다이어그램을 그대로 옮기지 않고 문제-정답-핵심 로직만 정리했다.
+- 정확도가 검증된 기출문제를 추가하고 싶다면 위 import API를 사용하면 된다.
 
 ## Vercel 배포
 

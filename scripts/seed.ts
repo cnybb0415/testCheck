@@ -13,12 +13,21 @@ async function main() {
   }
   const sql: NeonQueryFunction<false, false> = neon(connectionString);
 
-  const filePath = path.join(process.cwd(), "data", "seed-questions.json");
-  const raw = JSON.parse(fs.readFileSync(filePath, "utf-8"));
+  const dataDir = path.join(process.cwd(), "data");
+  const files = fs.readdirSync(dataDir).filter((f) => f.endsWith(".json")).sort();
 
-  const result = await importQuestions(sql, raw);
+  let totalInserted = 0;
+  let totalSkipped = 0;
 
-  console.log(`시드 완료: ${result.inserted}개 추가, ${result.skipped}개 건너뜀(중복)`);
+  for (const file of files) {
+    const raw = JSON.parse(fs.readFileSync(path.join(dataDir, file), "utf-8"));
+    const result = await importQuestions(sql, raw);
+    totalInserted += result.inserted;
+    totalSkipped += result.skipped;
+    console.log(`  ${file}: ${result.inserted}개 추가, ${result.skipped}개 건너뜀(중복)`);
+  }
+
+  console.log(`시드 완료: 총 ${totalInserted}개 추가, ${totalSkipped}개 건너뜀(중복)`);
 }
 
 main().catch((error) => {

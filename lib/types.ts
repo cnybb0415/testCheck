@@ -53,7 +53,7 @@ export interface CardProgress {
 export const QuestionImportSchema = z.object({
   unit: z.number().int().min(1).max(5),
   year: z.number().int().optional().nullable(),
-  session: z.number().int().min(1).max(3).optional().nullable(),
+  session: z.number().int().min(1).max(4).optional().nullable(),
   type: z.enum(QUESTION_TYPES).default("단답형"),
   question: z.string().min(1),
   answer: z.string().min(1),

@@ -31,6 +31,10 @@ yarn-error.log*
 # vercel
 .vercel
 
+# local tooling / source material (not part of the app)
+/.claude/
+/file/
+
 # typescript
 *.tsbuildinfo
 next-env.d.ts

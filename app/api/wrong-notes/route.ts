@@ -2,6 +2,8 @@ import { NextResponse } from "next/server";
 import { sql } from "@/lib/db";
 
 export const dynamic = "force-dynamic";
+export const revalidate = 0;
+export const fetchCache = "force-no-store";
 
 // GET /api/wrong-notes
 // 최근 시도가 오답이었거나, 오답 횟수가 정답 횟수보다 많은 문제 목록 + 단원별 정답률을 반환한다.

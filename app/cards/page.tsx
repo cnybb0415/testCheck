@@ -124,18 +124,15 @@ function CardsPageInner() {
       return (
         <QuizShell title="약점 집중 카드퀴즈" subtitle="오답노트에 있는 문제만 모아서 복습합니다.">
           {loading ? (
-            <p className="text-sm text-black/50 dark:text-white/50">불러오는 중...</p>
+            <p className="text-sm text-ink-faint">불러오는 중...</p>
           ) : pool.length === 0 ? (
-            <p className="rounded-lg border border-dashed border-black/15 p-6 text-center text-sm text-black/50 dark:border-white/20 dark:text-white/50">
+            <p className="rounded-xl2 bg-white p-6 text-center text-sm text-ink-faint shadow-soft">
               아직 취약 문제가 없습니다. 기출문제를 먼저 풀어보세요.
             </p>
           ) : (
             <div className="space-y-4">
-              <p className="text-sm text-black/60 dark:text-white/60">총 {pool.length}문제</p>
-              <button
-                onClick={startQuiz}
-                className="rounded-md bg-black px-4 py-2 text-sm font-medium text-white dark:bg-white dark:text-black"
-              >
+              <p className="text-sm text-ink-soft">총 {pool.length}문제</p>
+              <button onClick={startQuiz} className="rounded-md bg-mint-400 px-4 py-2 text-sm font-medium text-white">
                 약점 카드 시작하기
               </button>
             </div>
@@ -150,7 +147,7 @@ function CardsPageInner() {
           <select
             value={selectedUnit}
             onChange={(e) => setSelectedUnit(e.target.value)}
-            className="rounded-md border border-black/15 bg-transparent px-3 py-2 text-sm dark:border-white/20"
+            className="rounded-lg border-none bg-white px-3 py-2 text-sm text-ink shadow-soft"
           >
             <option value="">전체 단원 (셔플)</option>
             {units.map((unit) => (
@@ -161,7 +158,7 @@ function CardsPageInner() {
           </select>
           <button
             onClick={loadPool}
-            className="rounded-md border border-black/15 px-3 py-2 text-sm hover:bg-black/[.03] dark:border-white/20 dark:hover:bg-white/[.06]"
+            className="rounded-lg bg-white px-3 py-2 text-sm text-ink-soft shadow-soft hover:text-ink"
           >
             문제 불러오기
           </button>
@@ -169,21 +166,16 @@ function CardsPageInner() {
 
         <div className="mt-4">
           {loading ? (
-            <p className="text-sm text-black/50 dark:text-white/50">불러오는 중...</p>
+            <p className="text-sm text-ink-faint">불러오는 중...</p>
           ) : pool.length > 0 ? (
             <div className="space-y-4">
-              <p className="text-sm text-black/60 dark:text-white/60">총 {pool.length}문제</p>
-              <button
-                onClick={startQuiz}
-                className="rounded-md bg-black px-4 py-2 text-sm font-medium text-white dark:bg-white dark:text-black"
-              >
+              <p className="text-sm text-ink-soft">총 {pool.length}문제</p>
+              <button onClick={startQuiz} className="rounded-md bg-mint-400 px-4 py-2 text-sm font-medium text-white">
                 카드퀴즈 시작하기
               </button>
             </div>
           ) : (
-            <p className="text-sm text-black/40 dark:text-white/40">
-              &quot;문제 불러오기&quot;를 눌러 카드 목록을 준비하세요.
-            </p>
+            <p className="text-sm text-ink-faint">&quot;문제 불러오기&quot;를 눌러 카드 목록을 준비하세요.</p>
           )}
         </div>
       </QuizShell>
@@ -193,21 +185,15 @@ function CardsPageInner() {
   if (isFinished) {
     return (
       <QuizShell title="카드퀴즈 완료" subtitle="이번 세션을 모두 마쳤습니다.">
-        <div className="space-y-2 text-sm">
+        <div className="space-y-2 text-sm text-ink-soft">
           <p>총 카드 {totalCount}개를 모두 익혔습니다.</p>
-          <p className="text-black/60 dark:text-white/60">다시 봐야 했던 횟수: {retryCount}회</p>
+          <p>다시 봐야 했던 횟수: {retryCount}회</p>
         </div>
         <div className="mt-6 flex gap-3">
-          <button
-            onClick={startQuiz}
-            className="rounded-md border border-black/15 px-4 py-2 text-sm hover:bg-black/[.03] dark:border-white/20 dark:hover:bg-white/[.06]"
-          >
+          <button onClick={startQuiz} className="rounded-md bg-white px-4 py-2 text-sm text-ink shadow-soft">
             다시 풀기
           </button>
-          <Link
-            href="/"
-            className="rounded-md bg-black px-4 py-2 text-sm font-medium text-white dark:bg-white dark:text-black"
-          >
+          <Link href="/" className="rounded-md bg-mint-400 px-4 py-2 text-sm font-medium text-white">
             홈으로
           </Link>
         </div>
@@ -221,28 +207,25 @@ function CardsPageInner() {
         <div className="flex flex-col items-center">
           <div
             onClick={() => setFlipped((f) => !f)}
-            className="flex min-h-[220px] w-full max-w-lg cursor-pointer flex-col justify-center rounded-xl border border-black/10 bg-black/[.02] p-8 text-center transition-colors dark:border-white/15 dark:bg-white/[.04]"
+            className="flex min-h-[220px] w-full max-w-lg cursor-pointer flex-col justify-center rounded-xl2 bg-white p-8 text-center shadow-card transition-transform hover:-translate-y-0.5"
           >
-            <span className="mb-3 text-xs text-black/40 dark:text-white/40">{current.unit_name}</span>
+            <span className="mb-3 text-xs text-ink-faint">{current.unit_name}</span>
             {!flipped ? (
-              <p className="text-lg font-medium leading-relaxed">{current.question}</p>
+              <p className="whitespace-pre-wrap text-lg font-medium leading-relaxed text-ink">{current.question}</p>
             ) : (
               <div className="space-y-3 text-left">
-                <p>
+                <p className="whitespace-pre-wrap text-ink">
                   <span className="font-semibold">정답</span> {current.answer}
                 </p>
                 {current.explanation && (
-                  <p className="text-sm text-black/70 dark:text-white/70">
-                    <span className="font-semibold">해설</span> {current.explanation}
+                  <p className="whitespace-pre-wrap text-sm text-ink-soft">
+                    <span className="font-semibold text-ink">해설</span> {current.explanation}
                   </p>
                 )}
                 {current.keywords?.length > 0 && (
                   <div className="flex flex-wrap gap-1.5 pt-1">
                     {current.keywords.map((k) => (
-                      <span
-                        key={k}
-                        className="rounded bg-black/[.06] px-2 py-0.5 text-xs dark:bg-white/[.1]"
-                      >
+                      <span key={k} className="rounded bg-mint-50 px-2 py-0.5 text-xs text-mint-600">
                         {k}
                       </span>
                     ))}
@@ -250,29 +233,26 @@ function CardsPageInner() {
                 )}
               </div>
             )}
-            <span className="mt-4 text-xs text-black/30 dark:text-white/30">
+            <span className="mt-4 text-xs text-ink-faint">
               {flipped ? "카드를 클릭하면 앞면으로" : "카드를 클릭하면 정답 확인"}
             </span>
           </div>
 
           {flipped && (
             <div className="mt-5 flex gap-3">
-              <button
-                onClick={() => handleKnown(false)}
-                className="rounded-md border border-black/15 px-4 py-2 text-sm hover:bg-black/[.05] dark:border-white/20 dark:hover:bg-white/[.08]"
-              >
+              <button onClick={() => handleKnown(false)} className="rounded-md bg-white px-4 py-2 text-sm text-ink-soft shadow-soft hover:text-ink">
                 몰랐음
               </button>
               <button
                 onClick={() => handleKnown(true)}
-                className="rounded-md bg-green-600 px-4 py-2 text-sm font-medium text-white hover:bg-green-700"
+                className="rounded-md bg-mint-400 px-4 py-2 text-sm font-medium text-white hover:bg-mint-500"
               >
                 알았음
               </button>
             </div>
           )}
 
-          <p className="mt-4 text-xs text-black/40 dark:text-white/40">남은 카드: {queue.length}</p>
+          <p className="mt-4 text-xs text-ink-faint">남은 카드: {queue.length}</p>
         </div>
       )}
     </QuizShell>
@@ -289,17 +269,12 @@ function QuizShell({
   children: React.ReactNode;
 }) {
   return (
-    <div className="min-h-screen px-6 py-10 sm:px-12">
-      <main className="mx-auto max-w-3xl">
-        <Link href="/" className="text-sm text-black/50 hover:underline dark:text-white/50">
-          ← 홈으로
-        </Link>
-        <div className="mt-3 flex items-baseline justify-between">
-          <h1 className="text-2xl font-bold">{title}</h1>
-          {subtitle && <span className="text-sm text-black/50 dark:text-white/50">{subtitle}</span>}
-        </div>
-        <div className="mt-6">{children}</div>
-      </main>
+    <div>
+      <div className="flex items-baseline justify-between">
+        <h1 className="text-2xl font-bold text-ink">{title}</h1>
+        {subtitle && <span className="text-sm text-ink-faint">{subtitle}</span>}
+      </div>
+      <div className="mt-6">{children}</div>
     </div>
   );
 }
