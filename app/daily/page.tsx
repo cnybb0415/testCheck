@@ -99,7 +99,7 @@ export default function DailyPage() {
                     <span>{q.type}</span>
                   </div>
 
-                  <p className="mt-3 whitespace-pre-wrap font-medium leading-relaxed text-ink">
+                  <p className="mt-3 whitespace-pre-wrap break-words font-medium leading-relaxed text-ink">
                     {index + 1}. {q.question}
                   </p>
 
@@ -112,11 +112,11 @@ export default function DailyPage() {
                     </button>
                   ) : (
                     <div className="mt-4 space-y-2 rounded-lg bg-mint-50 p-4 text-sm">
-                      <p className="whitespace-pre-wrap text-ink">
+                      <p className="whitespace-pre-wrap break-words text-ink">
                         <span className="font-semibold">정답</span> {q.answer}
                       </p>
                       {q.explanation && (
-                        <p className="whitespace-pre-wrap text-ink-soft">
+                        <p className="whitespace-pre-wrap break-words text-ink-soft">
                           <span className="font-semibold text-ink">해설</span> {q.explanation}
                         </p>
                       )}

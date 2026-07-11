@@ -146,8 +146,8 @@ export default function DashboardPage() {
               {data.unitStats.map((u) => {
                 const isWeak = u.accuracy !== null && u.accuracy < 60;
                 return (
-                  <div key={u.id} className="flex items-center gap-3 text-sm">
-                    <span className="w-40 shrink-0 text-ink-soft">
+                  <div key={u.id} className="flex items-center gap-2 text-xs sm:gap-3 sm:text-sm">
+                    <span className="w-20 shrink-0 truncate text-ink-soft sm:w-40">
                       {u.number}. {u.name}
                     </span>
                     <div className="h-2 flex-1 overflow-hidden rounded-full bg-mint-50">
@@ -156,7 +156,7 @@ export default function DashboardPage() {
                         style={{ width: `${u.accuracy ?? 0}%` }}
                       />
                     </div>
-                    <span className={`w-20 shrink-0 text-right ${isWeak ? "text-rose-200" : "text-ink-faint"}`}>
+                    <span className={`w-14 shrink-0 text-right sm:w-20 ${isWeak ? "text-rose-200" : "text-ink-faint"}`}>
                       {u.accuracy === null ? "기록 없음" : `${u.accuracy}%`}
                     </span>
                   </div>
@@ -167,21 +167,23 @@ export default function DashboardPage() {
 
           <section className="mt-6 rounded-xl2 bg-white p-5 shadow-card">
             <h2 className="text-sm font-semibold text-ink-soft">최근 14일 학습 활동</h2>
-            <div className="mt-3 flex items-end gap-1.5">
-              {activityByDay.map((d) => {
-                const height = Math.max(4, (d.total_attempts / maxDayAttempts) * 64);
-                const dayLabel = d.day.slice(5).replace("-", "/");
-                return (
-                  <div key={d.day} className="flex flex-1 flex-col items-center gap-1">
-                    <div
-                      title={`${dayLabel}: ${d.total_attempts}문제 (정답 ${d.correct_attempts})`}
-                      className={`w-full rounded-sm ${d.total_attempts > 0 ? "bg-mint-400" : "bg-mint-50"}`}
-                      style={{ height: `${height}px` }}
-                    />
-                    <span className="text-[10px] text-ink-faint">{dayLabel}</span>
-                  </div>
-                );
-              })}
+            <div className="mt-3 overflow-x-auto">
+              <div className="flex min-w-[480px] items-end gap-1.5 sm:min-w-0">
+                {activityByDay.map((d) => {
+                  const height = Math.max(4, (d.total_attempts / maxDayAttempts) * 64);
+                  const dayLabel = d.day.slice(5).replace("-", "/");
+                  return (
+                    <div key={d.day} className="flex flex-1 flex-col items-center gap-1">
+                      <div
+                        title={`${dayLabel}: ${d.total_attempts}문제 (정답 ${d.correct_attempts})`}
+                        className={`w-full rounded-sm ${d.total_attempts > 0 ? "bg-mint-400" : "bg-mint-50"}`}
+                        style={{ height: `${height}px` }}
+                      />
+                      <span className="text-[10px] text-ink-faint">{dayLabel}</span>
+                    </div>
+                  );
+                })}
+              </div>
             </div>
           </section>
 

@@ -109,53 +109,58 @@ export default function ExamPage() {
       <h1 className="text-2xl font-bold text-ink">기출문제 풀기</h1>
       <p className="mt-1 text-sm text-ink-soft">단원 / 연도 / 회차로 필터링해서 문제를 풀어보세요.</p>
 
-      <div className="mt-6 flex flex-wrap items-center gap-3">
-        <select
-          value={selectedUnit}
-          onChange={(e) => setSelectedUnit(e.target.value)}
-          className="rounded-lg border-none bg-white px-3 py-2 text-sm text-ink shadow-soft"
-        >
-          <option value="">전체 단원</option>
-          {units.map((unit) => (
-            <option key={unit.id} value={unit.number}>
-              {unit.number}. {unit.name}
-            </option>
-          ))}
-        </select>
+      <div className="mt-6 space-y-3">
+        <div className="grid grid-cols-3 gap-2 sm:flex sm:flex-wrap sm:gap-3">
+          <select
+            value={selectedUnit}
+            onChange={(e) => setSelectedUnit(e.target.value)}
+            className="w-full min-w-0 rounded-lg border-none bg-white px-2 py-2 text-xs text-ink shadow-soft sm:w-auto sm:px-3 sm:text-sm"
+          >
+            <option value="">전체 단원</option>
+            {units.map((unit) => (
+              <option key={unit.id} value={unit.number}>
+                {unit.number}. {unit.name}
+              </option>
+            ))}
+          </select>
 
-        <select
-          value={selectedYear}
-          onChange={(e) => setSelectedYear(e.target.value)}
-          className="rounded-lg border-none bg-white px-3 py-2 text-sm text-ink shadow-soft"
-        >
-          <option value="">전체 연도</option>
-          {YEARS.map((year) => (
-            <option key={year} value={year}>
-              {year}년
-            </option>
-          ))}
-        </select>
+          <select
+            value={selectedYear}
+            onChange={(e) => setSelectedYear(e.target.value)}
+            className="w-full min-w-0 rounded-lg border-none bg-white px-2 py-2 text-xs text-ink shadow-soft sm:w-auto sm:px-3 sm:text-sm"
+          >
+            <option value="">전체 연도</option>
+            {YEARS.map((year) => (
+              <option key={year} value={year}>
+                {year}년
+              </option>
+            ))}
+          </select>
 
-        <select
-          value={selectedSession}
-          onChange={(e) => setSelectedSession(e.target.value)}
-          className="rounded-lg border-none bg-white px-3 py-2 text-sm text-ink shadow-soft"
-        >
-          <option value="">전체 회차</option>
-          {SESSIONS.map((session) => (
-            <option key={session} value={session}>
-              {session}회
-            </option>
-          ))}
-        </select>
+          <select
+            value={selectedSession}
+            onChange={(e) => setSelectedSession(e.target.value)}
+            className="w-full min-w-0 rounded-lg border-none bg-white px-2 py-2 text-xs text-ink shadow-soft sm:w-auto sm:px-3 sm:text-sm"
+          >
+            <option value="">전체 회차</option>
+            {SESSIONS.map((session) => (
+              <option key={session} value={session}>
+                {session}회
+              </option>
+            ))}
+          </select>
+        </div>
 
-        {(selectedUnit || selectedYear || selectedSession) && (
-          <button onClick={resetFilters} className="text-sm text-ink-faint hover:text-ink hover:underline">
-            필터 초기화
-          </button>
-        )}
-
-        <span className="ml-auto text-sm text-ink-faint">{resultLabel}</span>
+        <div className="flex items-center justify-between">
+          {selectedUnit || selectedYear || selectedSession ? (
+            <button onClick={resetFilters} className="text-sm text-ink-faint hover:text-ink hover:underline">
+              필터 초기화
+            </button>
+          ) : (
+            <span />
+          )}
+          <span className="text-sm text-ink-faint">{resultLabel}</span>
+        </div>
       </div>
 
       <div className="mt-6 flex flex-col gap-4">
@@ -181,7 +186,7 @@ export default function ExamPage() {
                 <span>{q.type}</span>
               </div>
 
-              <p className="mt-3 whitespace-pre-wrap font-medium leading-relaxed text-ink">
+              <p className="mt-3 whitespace-pre-wrap break-words font-medium leading-relaxed text-ink">
                 {index + 1}. {q.question}
               </p>
 
@@ -194,11 +199,11 @@ export default function ExamPage() {
                 </button>
               ) : (
                 <div className="mt-4 space-y-2 rounded-lg bg-mint-50 p-4 text-sm">
-                  <p className="whitespace-pre-wrap text-ink">
+                  <p className="whitespace-pre-wrap break-words text-ink">
                     <span className="font-semibold">정답</span> {q.answer}
                   </p>
                   {q.explanation && (
-                    <p className="whitespace-pre-wrap text-ink-soft">
+                    <p className="whitespace-pre-wrap break-words text-ink-soft">
                       <span className="font-semibold text-ink">해설</span> {q.explanation}
                     </p>
                   )}

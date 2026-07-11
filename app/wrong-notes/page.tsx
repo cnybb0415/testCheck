@@ -91,8 +91,8 @@ export default function WrongNotesPage() {
               {weakUnits.map((u) => {
                 const isWeak = u.accuracy !== null && u.accuracy < 60;
                 return (
-                  <div key={u.id} className="flex items-center gap-3 text-sm">
-                    <span className="w-40 shrink-0 text-ink-soft">
+                  <div key={u.id} className="flex items-center gap-2 text-xs sm:gap-3 sm:text-sm">
+                    <span className="w-20 shrink-0 truncate text-ink-soft sm:w-40">
                       {u.number}. {u.name}
                     </span>
                     <div className="h-2 flex-1 overflow-hidden rounded-full bg-mint-50">
@@ -101,7 +101,7 @@ export default function WrongNotesPage() {
                         style={{ width: `${u.accuracy ?? 0}%` }}
                       />
                     </div>
-                    <span className={`w-20 shrink-0 text-right ${isWeak ? "text-rose-200" : "text-ink-faint"}`}>
+                    <span className={`w-14 shrink-0 text-right sm:w-20 ${isWeak ? "text-rose-200" : "text-ink-faint"}`}>
                       {u.accuracy === null ? "기록 없음" : `${u.accuracy}%`}
                     </span>
                   </div>
@@ -143,13 +143,13 @@ export default function WrongNotesPage() {
                               오답 {q.wrong_count}회 · 정답 {q.correct_count}회
                             </span>
                           </div>
-                          <p className="mt-2 whitespace-pre-wrap font-medium leading-relaxed text-ink">{q.question}</p>
+                          <p className="mt-2 whitespace-pre-wrap break-words font-medium leading-relaxed text-ink">{q.question}</p>
                           <div className="mt-2 space-y-1 text-sm">
-                            <p className="whitespace-pre-wrap text-ink">
+                            <p className="whitespace-pre-wrap break-words text-ink">
                               <span className="font-semibold">정답</span> {q.answer}
                             </p>
                             {q.explanation && (
-                              <p className="whitespace-pre-wrap text-ink-soft">
+                              <p className="whitespace-pre-wrap break-words text-ink-soft">
                                 <span className="font-semibold text-ink">해설</span> {q.explanation}
                               </p>
                             )}

@@ -17,32 +17,55 @@ const NAV_ITEMS = [
 export default function Sidebar() {
   const pathname = usePathname();
 
-  return (
-    <aside className="sticky top-4 flex h-[calc(100vh-2rem)] w-[76px] shrink-0 flex-col items-center gap-2 rounded-xl2 bg-white py-6 shadow-card sm:w-[220px] sm:items-stretch sm:px-4">
-      <div className="mb-6 flex items-center gap-2 px-2 sm:px-1">
-        <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-mint-400 text-sm font-bold text-white">
-          정
-        </div>
-        <span className="hidden text-sm font-semibold text-ink sm:inline">실기 학습</span>
-      </div>
+  function isActive(href: string) {
+    return href === "/" ? pathname === "/" : pathname?.startsWith(href);
+  }
 
-      <nav className="flex flex-1 flex-col gap-1">
-        {NAV_ITEMS.map(({ href, label, icon: Icon }) => {
-          const active = href === "/" ? pathname === "/" : pathname?.startsWith(href);
-          return (
+  return (
+    <>
+      {/* 데스크톱: 좌측 고정 사이드바 */}
+      <aside className="sticky top-4 hidden h-[calc(100vh-2rem)] w-[220px] shrink-0 flex-col gap-2 rounded-xl2 bg-white px-4 py-6 shadow-card sm:flex">
+        <div className="mb-6 flex items-center gap-2 px-1">
+          <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-mint-400 text-sm font-bold text-white">
+            정
+          </div>
+          <span className="text-sm font-semibold text-ink">실기 학습</span>
+        </div>
+
+        <nav className="flex flex-1 flex-col gap-1">
+          {NAV_ITEMS.map(({ href, label, icon: Icon }) => (
             <Link
               key={href}
               href={href}
-              className={`flex items-center justify-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition-colors sm:justify-start ${
-                active ? "bg-mint-100 text-mint-600" : "text-ink-soft hover:bg-mint-50 hover:text-ink"
+              className={`flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition-colors ${
+                isActive(href) ? "bg-mint-100 text-mint-600" : "text-ink-soft hover:bg-mint-50 hover:text-ink"
               }`}
             >
               <Icon size={19} strokeWidth={2} />
-              <span className="hidden sm:inline">{label}</span>
+              <span>{label}</span>
             </Link>
-          );
-        })}
+          ))}
+        </nav>
+      </aside>
+
+      {/* 모바일: 하단 고정 탭바 */}
+      <nav
+        className="fixed inset-x-0 bottom-0 z-40 flex items-stretch justify-between border-t border-black/5 bg-white px-0.5 pt-1 shadow-[0_-2px_10px_rgb(31_42_36_/_0.06)] sm:hidden"
+        style={{ paddingBottom: "env(safe-area-inset-bottom, 4px)" }}
+      >
+        {NAV_ITEMS.map(({ href, label, icon: Icon }) => (
+          <Link
+            key={href}
+            href={href}
+            className={`flex flex-1 flex-col items-center gap-0.5 rounded-lg py-1.5 text-[9px] font-medium leading-none transition-colors ${
+              isActive(href) ? "text-mint-600" : "text-ink-faint"
+            }`}
+          >
+            <Icon size={18} strokeWidth={2} />
+            <span className="whitespace-nowrap">{label}</span>
+          </Link>
+        ))}
       </nav>
-    </aside>
+    </>
   );
 }

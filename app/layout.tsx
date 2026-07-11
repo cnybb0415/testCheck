@@ -29,9 +29,9 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <div className="mx-auto flex max-w-7xl gap-4 p-4">
+        <div className="mx-auto flex max-w-7xl gap-4 px-3 py-4 sm:p-4">
           <Sidebar />
-          <main className="min-w-0 flex-1 pb-10">{children}</main>
+          <main className="min-w-0 flex-1 pb-24 sm:pb-10">{children}</main>
         </div>
       </body>
     </html>

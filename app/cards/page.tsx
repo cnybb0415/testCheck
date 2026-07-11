@@ -207,18 +207,18 @@ function CardsPageInner() {
         <div className="flex flex-col items-center">
           <div
             onClick={() => setFlipped((f) => !f)}
-            className="flex min-h-[220px] w-full max-w-lg cursor-pointer flex-col justify-center rounded-xl2 bg-white p-8 text-center shadow-card transition-transform hover:-translate-y-0.5"
+            className="flex min-h-[220px] w-full max-w-lg cursor-pointer flex-col justify-center rounded-xl2 bg-white p-6 text-center shadow-card transition-transform hover:-translate-y-0.5 sm:p-8"
           >
             <span className="mb-3 text-xs text-ink-faint">{current.unit_name}</span>
             {!flipped ? (
-              <p className="whitespace-pre-wrap text-lg font-medium leading-relaxed text-ink">{current.question}</p>
+              <p className="whitespace-pre-wrap break-words text-lg font-medium leading-relaxed text-ink">{current.question}</p>
             ) : (
               <div className="space-y-3 text-left">
-                <p className="whitespace-pre-wrap text-ink">
+                <p className="whitespace-pre-wrap break-words text-ink">
                   <span className="font-semibold">정답</span> {current.answer}
                 </p>
                 {current.explanation && (
-                  <p className="whitespace-pre-wrap text-sm text-ink-soft">
+                  <p className="whitespace-pre-wrap break-words text-sm text-ink-soft">
                     <span className="font-semibold text-ink">해설</span> {current.explanation}
                   </p>
                 )}
